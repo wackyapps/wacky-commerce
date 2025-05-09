@@ -6,6 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
+  url      = "mysql://root:@localhost:3306/college"
+
 }
 
 datasource db {
