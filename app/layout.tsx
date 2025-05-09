@@ -5,10 +5,8 @@ import { Footer, Header } from "@/components";
 import SessionProvider from "@/utils/SessionProvider";
 import Providers from "@/Providers";
 import { getServerSession } from "next-auth";
-import 'svgmap/dist/svgMap.min.css';
-
-
-
+import "svgmap/dist/svgMap.min.css";
+import CartDrawer from "@/components/drawers/CartDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,19 +20,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const session = await getServerSession();
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-      <SessionProvider session={session}>
-        <Header />
-        <Providers>
-        {children}
-        </Providers>
-        <Footer />
-      </SessionProvider>
-        </body>
+        <SessionProvider session={session}>
+          <Header />
+          <Providers>{children}</Providers>
+          <Footer />
+          <CartDrawer />
+        </SessionProvider>
+      </body>
     </html>
   );
 }

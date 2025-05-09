@@ -19,7 +19,7 @@ const BuyNowSingleProductBtn = ({
   quantityCount,
 }: SingleProductBtnProps) => {
   const router = useRouter();
-  const { addToCart, calculateTotals } = useProductStore();
+  const { addToCart, calculateTotals, setShowCartDrawer } = useProductStore();
 
   const handleAddToCart = () => {
     addToCart({
@@ -30,6 +30,7 @@ const BuyNowSingleProductBtn = ({
       amount: quantityCount,
     });
     calculateTotals();
+    setShowCartDrawer(true);
     toast.success("Product added to the cart");
     router.push("/checkout");
   };

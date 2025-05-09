@@ -1,8 +1,7 @@
 "use client";
 import { Toaster } from "react-hot-toast";
-
 import React from "react";
-
+import { HeroUIProvider } from "@heroui/react";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
@@ -14,7 +13,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           },
         }}
       />
-      {children}
+      <HeroUIProvider>{children}</HeroUIProvider>
     </>
   );
 };

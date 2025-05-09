@@ -13,6 +13,7 @@ export type State = {
   products: ProductInCart[];
   allQuantity: number;
   total: number;
+  isShowCartDrawer: boolean;
 };
 
 export type Actions = {
@@ -21,6 +22,7 @@ export type Actions = {
   updateCartAmount: (id: string, quantity: number) => void;
   calculateTotals: () => void;
   clearCart: () => void;
+  setShowCartDrawer: (value: boolean) => void;
 };
 
 export const useProductStore = create<State & Actions>()(
@@ -29,6 +31,7 @@ export const useProductStore = create<State & Actions>()(
       products: [],
       allQuantity: 0,
       total: 0,
+      isShowCartDrawer: false,
       addToCart: (newProduct) => {
         set((state) => {
           const cartItem = state.products.find(
@@ -48,7 +51,6 @@ export const useProductStore = create<State & Actions>()(
       },
       clearCart: () => {
         set((state: any) => {
-          
           return {
             products: [],
             allQuantity: 0,
@@ -96,6 +98,13 @@ export const useProductStore = create<State & Actions>()(
           }
 
           return { products: [...state.products] };
+        });
+      },
+      setShowCartDrawer: (value) => {
+        set((state) => {
+          return {
+            isShowCartDrawer: value,
+          };
         });
       },
     }),
