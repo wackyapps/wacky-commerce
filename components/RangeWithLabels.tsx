@@ -23,14 +23,14 @@ const RangeWithLabels = () => {
 
   return (
     <div>
-      <span className="label-text text-lg text-black">Price filter:</span>
+      <span className="daisy-label-text text-lg text-black">Price filter:</span>
       <input
         type="range"
         min={0}
         max="1000"
         value={currentRangeWLabelsValue}
         onChange={(e) => handleRangeWLabelsValue(e)}
-        className="range range-warning"
+        className="daisy-range daisy-range-warning"
         step="200"
       />
       <div className="w-full flex justify-between text-xs px-2">

@@ -20,11 +20,11 @@ const ProductTabs = ({ product }: { product: Product }) => {
 
   return (
     <div className="px-5 text-black">
-      <div role="tablist" className="tabs tabs-bordered">
+      <div role="tablist" className="daisy-tabs daisy-tabs-bordered">
         <a
           role="tab"
-          className={`tab text-lg text-black pb-8 max-[500px]:text-base max-[400px]:text-sm max-[370px]:text-xs ${
-            currentProductTab === 0 && "tab-active"
+          className={`daisy-tab text-lg text-black pb-8 max-[500px]:text-base max-[400px]:text-sm max-[370px]:text-xs ${
+            currentProductTab === 0 && "daisy-tab-active"
           }`}
           onClick={() => setCurrentProductTab(0)}
         >
@@ -32,8 +32,8 @@ const ProductTabs = ({ product }: { product: Product }) => {
         </a>
         <a
           role="tab"
-          className={`tab text-black text-lg pb-8 max-[500px]:text-base max-[400px]:text-sm max-[370px]:text-xs ${
-            currentProductTab === 1 && "tab-active"
+          className={`daisy-tab text-black text-lg pb-8 max-[500px]:text-base max-[400px]:text-sm max-[370px]:text-xs ${
+            currentProductTab === 1 && "daisy-tab-active"
           }`}
           onClick={() => setCurrentProductTab(1)}
         >
@@ -42,14 +42,12 @@ const ProductTabs = ({ product }: { product: Product }) => {
       </div>
       <div className="pt-5">
         {currentProductTab === 0 && (
-          <p className="text-lg max-sm:text-base max-sm:text-sm">
-            {product?.description}
-          </p>
+          <p className="text-lg  max-sm:text-sm">{product?.description}</p>
         )}
 
         {currentProductTab === 1 && (
           <div className="overflow-x-auto">
-            <table className="table text-xl text-center max-[500px]:text-base">
+            <table className="daisy-table text-xl text-center max-[500px]:text-base">
               <tbody>
                 {/* row 1 */}
                 <tr>

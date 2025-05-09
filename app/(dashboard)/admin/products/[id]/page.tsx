@@ -141,13 +141,13 @@ const DashboardProductDetails = ({
         <h1 className="text-3xl font-semibold">Product details</h1>
         {/* Product name input div - start */}
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Product name:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Product name:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={product?.title}
               onChange={(e) =>
                 setProduct({ ...product!, title: e.target.value })
@@ -159,13 +159,13 @@ const DashboardProductDetails = ({
         {/* Product price input div - start */}
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Product price:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Product price:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={product?.price}
               onChange={(e) =>
                 setProduct({ ...product!, price: Number(e.target.value) })
@@ -176,13 +176,13 @@ const DashboardProductDetails = ({
         {/* Product price input div - end */}
         {/* Product manufacturer input div - start */}
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Manufacturer:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Manufacturer:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={product?.manufacturer}
               onChange={(e) =>
                 setProduct({ ...product!, manufacturer: e.target.value })
@@ -194,13 +194,13 @@ const DashboardProductDetails = ({
         {/* Product slug input div - start */}
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Slug:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Slug:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={product?.slug && convertSlugToURLFriendly(product?.slug)}
               onChange={(e) =>
                 setProduct({
@@ -215,12 +215,12 @@ const DashboardProductDetails = ({
         {/* Product inStock select input div - start */}
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Is product in stock?</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Is product in stock?</span>
             </div>
             <select
-              className="select select-bordered"
+              className="daisy-select daisy-select-bordered"
               value={product?.inStock}
               onChange={(e) => {
                 setProduct({ ...product!, inStock: Number(e.target.value) });
@@ -234,12 +234,12 @@ const DashboardProductDetails = ({
         {/* Product inStock select input div - end */}
         {/* Product category select input div - start */}
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Category:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Category:</span>
             </div>
             <select
-              className="select select-bordered"
+              className="daisy-select daisy-select-bordered"
               value={product?.categoryId}
               onChange={(e) =>
                 setProduct({
@@ -263,9 +263,9 @@ const DashboardProductDetails = ({
         <div>
           <input
             type="file"
-            className="file-input file-input-bordered file-input-lg w-full max-w-sm"
+            className="daisy-file-input daisy-file-input-bordered daisy-file-input-lg w-full max-w-sm"
             onChange={(e) => {
-              const selectedFile = e.target.files[0];
+              const selectedFile = e.target.files?.[0];
 
               if (selectedFile) {
                 uploadFile(selectedFile);
@@ -301,12 +301,12 @@ const DashboardProductDetails = ({
         {/* Other images file upload div - end */}
         {/* Product description div - start */}
         <div>
-          <label className="form-control">
-            <div className="label">
-              <span className="label-text">Product description:</span>
+          <label className="daisy-form-control">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Product description:</span>
             </div>
             <textarea
-              className="textarea textarea-bordered h-24"
+              className="daisy-textarea daisy-textarea-bordered h-24"
               value={product?.description}
               onChange={(e) =>
                 setProduct({ ...product!, description: e.target.value })
@@ -320,13 +320,13 @@ const DashboardProductDetails = ({
           <button
             type="button"
             onClick={updateProduct}
-            className="uppercase bg-blue-500 px-10 py-5 text-lg border border-black border-gray-300 font-bold text-white shadow-sm hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2"
+            className="uppercase bg-blue-500 px-10 py-5 text-lg border  border-gray-300 font-bold text-white shadow-sm hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2"
           >
             Update product
           </button>
           <button
             type="button"
-            className="uppercase bg-red-600 px-10 py-5 text-lg border border-black border-gray-300 font-bold text-white shadow-sm hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2"
+            className="uppercase bg-red-600 px-10 py-5 text-lg border  border-gray-300 font-bold text-white shadow-sm hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2"
             onClick={deleteProduct}
           >
             Delete product

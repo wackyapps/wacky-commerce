@@ -19,7 +19,9 @@ const DashboardProductTable = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/products?mode=admin", {cache: "no-store"})
+    fetch("http://localhost:3001/api/products?mode=admin", {
+      cache: "no-store",
+    })
       .then((res) => {
         return res.json();
       })
@@ -44,14 +46,14 @@ const DashboardProductTable = () => {
         </Link>
       </div>
 
-      <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[80vh]">
-        <table className="table table-md table-pin-cols">
+      <div className="xl:ml-5  max-xl:mt-5 overflow-auto w-full h-[80vh]">
+        <table className="daisy-table daisy-table-md daisy-table-pin-cols">
           {/* head */}
           <thead>
             <tr>
               <th>
                 <label>
-                  <input type="checkbox" className="checkbox" />
+                  <input type="checkbox" className="daisy-checkbox" />
                 </label>
               </th>
               <th>Product</th>
@@ -67,18 +69,22 @@ const DashboardProductTable = () => {
                 <tr key={nanoid()}>
                   <th>
                     <label>
-                      <input type="checkbox" className="checkbox" />
+                      <input type="checkbox" className="daisy-checkbox" />
                     </label>
                   </th>
 
                   <td>
                     <div className="flex items-center gap-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
+                      <div className="daisy-avatar">
+                        <div className="daisy-mask daisy-mask-squircle w-12 h-12">
                           <Image
                             width={48}
                             height={48}
-                            src={product?.mainImage ? `/${product?.mainImage}` : "/product_placeholder.jpg"}
+                            src={
+                              product?.mainImage
+                                ? `/${product?.mainImage}`
+                                : "/product_placeholder.jpg"
+                            }
                             alt="Avatar Tailwind CSS Component"
                             className="w-auto h-auto"
                           />
@@ -94,18 +100,21 @@ const DashboardProductTable = () => {
                   </td>
 
                   <td>
-                    { product?.inStock ? (<span className="badge badge-success text-white badge-sm">
-                      In stock
-                    </span>) : (<span className="badge badge-error text-white badge-sm">
-                      Out of stock
-                    </span>) }
-                    
+                    {product?.inStock ? (
+                      <span className="daisy-badge daisy-badge-success text-white daisy-badge-sm">
+                        In stock
+                      </span>
+                    ) : (
+                      <span className="daisy-badge daisy-badge-error text-white daisy-badge-sm">
+                        Out of stock
+                      </span>
+                    )}
                   </td>
                   <td>${product?.price}</td>
                   <th>
                     <Link
                       href={`/admin/products/${product.id}`}
-                      className="btn btn-ghost btn-xs"
+                      className="daisy-btn daisy-btn-ghost daisy-btn-xs"
                     >
                       details
                     </Link>

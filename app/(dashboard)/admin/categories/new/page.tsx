@@ -46,13 +46,13 @@ const DashboardNewCategoryPage = () => {
       <div className="flex flex-col gap-y-7 xl:pl-5 max-xl:px-5 w-full">
         <h1 className="text-3xl font-semibold">Add new category</h1>
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Category name:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Category name:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={categoryInput.name}
               onChange={(e) =>
                 setCategoryInput({ ...categoryInput, name: e.target.value })
@@ -64,7 +64,7 @@ const DashboardNewCategoryPage = () => {
         <div className="flex gap-x-2">
           <button
             type="button"
-            className="uppercase bg-blue-500 px-10 py-5 text-lg border border-black border-gray-300 font-bold text-white shadow-sm hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2"
+            className="uppercase bg-blue-500 px-10 py-5 text-lg border  border-gray-300 font-bold text-white shadow-sm hover:bg-blue-600 hover:text-white focus:outline-none focus:ring-2"
             onClick={addNewCategory}
           >
             Create category

@@ -16,10 +16,10 @@ import { useSortStore } from "@/app/_zustand/sortStore";
 import { usePaginationStore } from "@/app/_zustand/paginationStore";
 
 interface InputCategory {
-  inStock: { text: string, isChecked: boolean },
-  outOfStock: { text: string, isChecked: boolean },
-  priceFilter: { text: string, value: number },
-  ratingFilter: { text: string, value: number },
+  inStock: { text: string; isChecked: boolean };
+  outOfStock: { text: string; isChecked: boolean };
+  priceFilter: { text: string; value: number };
+  ratingFilter: { text: string; value: number };
 }
 
 const Filters = () => {
@@ -52,10 +52,10 @@ const Filters = () => {
   return (
     <div>
       <h3 className="text-2xl mb-2">Filters</h3>
-      <div className="divider"></div>
+      <div className="daisy-divider"></div>
       <div className="flex flex-col gap-y-1">
         <h3 className="text-xl mb-2">Availability</h3>
-        <div className="form-control">
+        <div className="daisy-form-control">
           <label className="cursor-pointer flex items-center">
             <input
               type="checkbox"
@@ -69,13 +69,13 @@ const Filters = () => {
                   },
                 })
               }
-              className="checkbox"
+              className="daisy-checkbox"
             />
             <span className="label-text text-lg ml-2 text-black">In stock</span>
           </label>
         </div>
 
-        <div className="form-control">
+        <div className="daisy-form-control">
           <label className="cursor-pointer flex items-center">
             <input
               type="checkbox"
@@ -89,7 +89,7 @@ const Filters = () => {
                   },
                 })
               }
-              className="checkbox"
+              className="daisy-checkbox"
             />
             <span className="label-text text-lg ml-2 text-black">
               Out of stock
@@ -98,7 +98,7 @@ const Filters = () => {
         </div>
       </div>
 
-      <div className="divider"></div>
+      <div className="daisy-divider"></div>
       <div className="flex flex-col gap-y-1">
         <h3 className="text-xl mb-2">Price</h3>
         <div>
@@ -108,7 +108,7 @@ const Filters = () => {
             max={3000}
             step={10}
             value={inputCategory.priceFilter.value}
-            className="range"
+            className="daisy-range"
             onChange={(e) =>
               setInputCategory({
                 ...inputCategory,
@@ -123,7 +123,7 @@ const Filters = () => {
         </div>
       </div>
 
-      <div className="divider"></div>
+      <div className="daisy-divider"></div>
 
       <div>
         <h3 className="text-xl mb-2">Minimum Rating:</h3>
@@ -138,7 +138,7 @@ const Filters = () => {
               ratingFilter: { text: "rating", value: Number(e.target.value) },
             })
           }
-          className="range range-info"
+          className="daisy-range daisy-range-info"
           step="1"
         />
         <div className="w-full flex justify-between text-xs px-2">

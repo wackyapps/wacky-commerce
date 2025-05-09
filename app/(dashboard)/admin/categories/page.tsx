@@ -38,14 +38,14 @@ const DashboardCategory = () => {
             />
           </Link>
         </div>
-        <div className="xl:ml-5 w-full max-xl:mt-5 overflow-auto w-full h-[80vh]">
-          <table className="table table-md table-pin-cols">
+        <div className="xl:ml-5  max-xl:mt-5 overflow-auto w-full h-[80vh]">
+          <table className="daisy-table daisy-table-md daisy-table-pin-cols">
             {/* head */}
             <thead>
               <tr>
                 <th>
                   <label>
-                    <input type="checkbox" className="checkbox" />
+                    <input type="checkbox" className="daisy-checkbox" />
                   </label>
                 </th>
                 <th>Name</th>
@@ -58,7 +58,7 @@ const DashboardCategory = () => {
                   <tr key={nanoid()}>
                     <th>
                       <label>
-                        <input type="checkbox" className="checkbox" />
+                        <input type="checkbox" className="daisy-checkbox" />
                       </label>
                     </th>
 
@@ -71,7 +71,7 @@ const DashboardCategory = () => {
                     <th>
                       <Link
                         href={`/admin/categories/${category?.id}`}
-                        className="btn btn-ghost btn-xs"
+                        className="daisy-btn daisy-btn-ghost daisy-btn-xs"
                       >
                         details
                       </Link>

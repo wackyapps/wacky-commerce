@@ -24,7 +24,7 @@ function SimpleSlider() {
     slidesToScroll: 1,
   };
   return (
-    <div className="slider-container max-w-screen-2xl mx-auto px-16 max-md:px-7">
+    <div className="daisy-slider-container max-w-screen-2xl mx-auto px-16 max-md:px-7">
       <Slider {...settings}>
         <div className="h-[500px] max-lg:h-[400px] max-md:h-[250px] max-[500px]:h-[200px] max-[400px]:h-[150px] relative">
           <div className="absolute left-[50%] translate-x-[-50%] translate-y-[30%] h-full text-center max-lg:translate-y-[25%] max-md:translate-y-[20%] max-sm:hidden">
@@ -38,7 +38,10 @@ function SimpleSlider() {
               Fine-tune your listening experience by using the convenient volume
               slider to adjust sound intensity to your preference.
             </p>
-            <Link href="/shop" className="bg-custom-yellow btn w-52 h-14 text-black uppercase border border-black text-xl hover:bg-black hover:text-custom-yellow max-[1162px]:w-44 max-[1162px]:h-10 max-[1162px]:text-lg max-lg:text-base max-lg:w-36 max-md:text-sm max-md:w-32">
+            <Link
+              href="/shop"
+              className="bg-custom-yellow daisy-btn w-52 h-14 text-black uppercase border border-black text-xl hover:bg-black hover:text-custom-yellow max-[1162px]:w-44 max-[1162px]:h-10 max-[1162px]:text-lg max-lg:text-base max-lg:w-36 max-md:text-sm max-md:w-32"
+            >
               Shop now
             </Link>
           </div>
@@ -53,9 +56,13 @@ function SimpleSlider() {
               Go wireless or go home
             </h2>
             <p className="mb-5 text-black text-lg font-medium max-[1162px]:text-base max-lg:mb-2 max-lg:text-sm max-md:mb-1">
-            Seamlessly control your sound world by sliding the volume to your perfect level.
+              Seamlessly control your sound world by sliding the volume to your
+              perfect level.
             </p>
-            <Link href="/shop" className="bg-custom-yellow btn w-52 h-14 text-black uppercase border border-black text-xl hover:bg-black hover:text-custom-yellow max-[1162px]:w-44 max-[1162px]:h-10 max-[1162px]:text-lg max-lg:text-base max-lg:w-36 max-md:text-sm max-md:w-32">
+            <Link
+              href="/shop"
+              className="bg-custom-yellow daisy-btn w-52 h-14 text-black uppercase border border-black text-xl hover:bg-black hover:text-custom-yellow max-[1162px]:w-44 max-[1162px]:h-10 max-[1162px]:text-lg max-lg:text-base max-lg:w-36 max-md:text-sm max-md:w-32"
+            >
               Shop now
             </Link>
           </div>

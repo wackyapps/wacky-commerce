@@ -5,7 +5,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { isValidCardNumber, isValidCreditCardCVVOrCVC, isValidCreditCardExpirationDate, isValidEmailAddressFormat, isValidNameOrLastname } from "@/lib/utils";
+import {
+  isValidCardNumber,
+  isValidCreditCardCVVOrCVC,
+  isValidCreditCardExpirationDate,
+  isValidEmailAddressFormat,
+  isValidNameOrLastname,
+} from "@/lib/utils";
 
 const CheckoutPage = () => {
   const [checkoutForm, setCheckoutForm] = useState({
@@ -160,8 +166,6 @@ const CheckoutPage = () => {
     });
   };
 
-  
-
   useEffect(() => {
     if (products.length === 0) {
       toast.error("You don't have items in your cart");
@@ -207,7 +211,11 @@ const CheckoutPage = () => {
                   className="flex items-start space-x-4 py-6"
                 >
                   <Image
-                    src={product?.image ? `/${product?.image}` : "/product_placeholder.jpg"}
+                    src={
+                      product?.image
+                        ? `/${product?.image}`
+                        : "/product_placeholder.jpg"
+                    }
                     alt={product?.title}
                     width={80}
                     height={80}
@@ -639,7 +647,7 @@ const CheckoutPage = () => {
                   </label>
                   <div className="mt-1">
                     <textarea
-                      className="textarea textarea-bordered textarea-lg w-full"
+                      className="daisy-textarea daisy-textarea-bordered daisy-textarea-lg w-full"
                       id="order-notice"
                       name="order-notice"
                       autoComplete="order-notice"

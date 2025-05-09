@@ -29,13 +29,13 @@ const AdminOrders = () => {
     <div className="xl:ml-5 w-full max-xl:mt-5 ">
       <h1 className="text-3xl font-semibold text-center mb-5">All orders</h1>
       <div className="overflow-x-auto">
-        <table className="table table-md table-pin-cols">
+        <table className="daisy-table daisy-table-md daisy-table-pin-cols">
           {/* head */}
           <thead>
             <tr>
               <th>
                 <label>
-                  <input type="checkbox" className="checkbox" />
+                  <input type="checkbox" className="daisy-checkbox" />
                 </label>
               </th>
               <th>Order ID</th>
@@ -53,7 +53,7 @@ const AdminOrders = () => {
                 <tr key={order?.id}>
                   <th>
                     <label>
-                      <input type="checkbox" className="checkbox" />
+                      <input type="checkbox" className="daisy-checkbox" />
                     </label>
                   </th>
 
@@ -67,13 +67,15 @@ const AdminOrders = () => {
                     <div className="flex items-center gap-5">
                       <div>
                         <div className="font-bold">{order?.name}</div>
-                        <div className="text-sm opacity-50">{order?.country}</div>
+                        <div className="text-sm opacity-50">
+                          {order?.country}
+                        </div>
                       </div>
                     </div>
                   </td>
 
                   <td>
-                    <span className="badge badge-success text-white badge-sm">
+                    <span className="daisy-badge daisy-badge-success text-white badge-sm">
                       {order?.status}
                     </span>
                   </td>
@@ -82,11 +84,13 @@ const AdminOrders = () => {
                     <p>${order?.total}</p>
                   </td>
 
-                  <td>{ new Date(Date.parse(order?.dateTime)).toDateString() }</td>
+                  <td>
+                    {new Date(Date.parse(order?.dateTime)).toDateString()}
+                  </td>
                   <th>
                     <Link
                       href={`/admin/orders/${order?.id}`}
-                      className="btn btn-ghost btn-xs"
+                      className="daisy-btn daisy-btn-ghost daisy-btn-xs"
                     >
                       details
                     </Link>

@@ -22,7 +22,7 @@ const SortBy = () => {
       <select
         defaultValue={sortBy}
         onChange={(e) => changeSortBy(e.target.value)}
-        className="select border-gray-400 py-2 px-2 text-base border-2 select-bordered w-40 focus:outline-none outline-none max-lg:w-full bg-white"
+        className="daisy-select border-gray-400 py-2 px-2 text-base border-2 daisy-select-bordered w-40 focus:outline-none outline-none max-lg:w-full bg-white"
         name="sort"
       >
         <option value="defaultSort">Default</option>

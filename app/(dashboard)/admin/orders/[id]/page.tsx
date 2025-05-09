@@ -154,26 +154,26 @@ const AdminSingleOrder = () => {
         </div>
         <div className="flex gap-x-2 max-sm:flex-col">
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Name:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">Name:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.name}
                 onChange={(e) => setOrder({ ...order, name: e.target.value })}
               />
             </label>
           </div>
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Lastname:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">Lastname:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.lastname}
                 onChange={(e) =>
                   setOrder({ ...order, lastname: e.target.value })
@@ -184,13 +184,13 @@ const AdminSingleOrder = () => {
         </div>
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Phone number:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Phone number:</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={order?.phone}
               onChange={(e) => setOrder({ ...order, phone: e.target.value })}
             />
@@ -198,13 +198,13 @@ const AdminSingleOrder = () => {
         </div>
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Email adress:</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Email adress:</span>
             </div>
             <input
               type="email"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={order?.email}
               onChange={(e) => setOrder({ ...order, email: e.target.value })}
             />
@@ -212,13 +212,13 @@ const AdminSingleOrder = () => {
         </div>
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Company (optional):</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Company (optional):</span>
             </div>
             <input
               type="text"
-              className="input input-bordered w-full max-w-xs"
+              className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={order?.company}
               onChange={(e) => setOrder({ ...order, company: e.target.value })}
             />
@@ -227,13 +227,13 @@ const AdminSingleOrder = () => {
 
         <div className="flex gap-x-2 max-sm:flex-col">
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Address:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">Address:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.adress}
                 onChange={(e) => setOrder({ ...order, adress: e.target.value })}
               />
@@ -241,13 +241,15 @@ const AdminSingleOrder = () => {
           </div>
 
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Apartment, suite, etc. :</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">
+                  Apartment, suite, etc. :
+                </span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.apartment}
                 onChange={(e) =>
                   setOrder({ ...order, apartment: e.target.value })
@@ -259,13 +261,13 @@ const AdminSingleOrder = () => {
 
         <div className="flex gap-x-2 max-sm:flex-col">
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">City:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">City:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.city}
                 onChange={(e) => setOrder({ ...order, city: e.target.value })}
               />
@@ -273,13 +275,13 @@ const AdminSingleOrder = () => {
           </div>
 
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Country:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">Country:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.country}
                 onChange={(e) =>
                   setOrder({ ...order, country: e.target.value })
@@ -289,13 +291,13 @@ const AdminSingleOrder = () => {
           </div>
 
           <div>
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Postal Code:</span>
+            <label className="daisy-form-control w-full max-w-xs">
+              <div className="daisy-label">
+                <span className="daisy-label-text">Postal Code:</span>
               </div>
               <input
                 type="text"
-                className="input input-bordered w-full max-w-xs"
+                className="daisy-input daisy-input-bordered w-full max-w-xs"
                 value={order?.postalCode}
                 onChange={(e) =>
                   setOrder({ ...order, postalCode: e.target.value })
@@ -306,12 +308,12 @@ const AdminSingleOrder = () => {
         </div>
 
         <div>
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Order status</span>
+          <label className="daisy-form-control w-full max-w-xs">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Order status</span>
             </div>
             <select
-              className="select select-bordered"
+              className="daisy-select daisy-select-bordered"
               value={order?.status}
               onChange={(e) =>
                 setOrder({
@@ -330,12 +332,12 @@ const AdminSingleOrder = () => {
           </label>
         </div>
         <div>
-          <label className="form-control">
-            <div className="label">
-              <span className="label-text">Order notice:</span>
+          <label className="daisy-form-control">
+            <div className="daisy-label">
+              <span className="daisy-label-text">Order notice:</span>
             </div>
             <textarea
-              className="textarea textarea-bordered h-24"
+              className="daisy-textarea daisy-textarea-bordered h-24"
               value={order?.orderNotice || ""}
               onChange={(e) =>
                 setOrder({ ...order, orderNotice: e.target.value })
@@ -347,7 +349,11 @@ const AdminSingleOrder = () => {
           {orderProducts?.map((product) => (
             <div className="flex items-center gap-x-4" key={product?.id}>
               <Image
-                src={product?.product?.mainImage ? `/${product?.product?.mainImage}` : "/product_placeholder.jpg"}
+                src={
+                  product?.product?.mainImage
+                    ? `/${product?.product?.mainImage}`
+                    : "/product_placeholder.jpg"
+                }
                 alt={product?.product?.title}
                 width={50}
                 height={50}
