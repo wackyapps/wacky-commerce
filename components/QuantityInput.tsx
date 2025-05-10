@@ -19,9 +19,10 @@ interface QuantityInputProps {
   setQuantityCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const QuantityInput = ({quantityCount, setQuantityCount} : QuantityInputProps) => {
-
-
+const QuantityInput = ({
+  quantityCount,
+  setQuantityCount,
+}: QuantityInputProps) => {
   const handleQuantityChange = (actionName: string): void => {
     if (actionName === "plus") {
       setQuantityCount(quantityCount + 1);
@@ -48,7 +49,7 @@ const QuantityInput = ({quantityCount, setQuantityCount} : QuantityInputProps) =
           id="Quantity"
           disabled={true}
           value={quantityCount}
-          className="h-10 w-24 rounded border-gray-200 sm:text-sm"
+          className="h-10 w-24 rounded text-center border-gray-200 sm:text-sm"
         />
 
         <button

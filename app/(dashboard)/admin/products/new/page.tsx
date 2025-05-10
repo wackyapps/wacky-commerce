@@ -143,12 +143,19 @@ const AddNewProduct = () => {
               type="text"
               className="daisy-input daisy-input-bordered w-full max-w-xs"
               value={convertSlugToURLFriendly(product?.slug)}
-              onChange={(e) =>
+              onChange={(e) => {
+                let value = e.target.value;
+                // Remove leading slash if present
+                if (value.startsWith("/")) {
+                  value = value.substring(1);
+                }
+                // Replace spaces with hyphens
+                value = value.replace(/\s+/g, "-");
                 setProduct({
                   ...product,
-                  slug: convertSlugToURLFriendly(e.target.value),
-                })
-              }
+                  slug: value.toLowerCase(),
+                });
+              }}
             />
           </label>
         </div>

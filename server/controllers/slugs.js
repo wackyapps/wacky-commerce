@@ -3,12 +3,13 @@ const prisma = new PrismaClient();
 
 async function getProductBySlug(request, response) {
   const { slug } = request.params;
+  console.log("getProductBySlug", slug);
   const product = await prisma.product.findMany({
     where: {
       slug: slug,
     },
     include: {
-      category: true
+      category: true,
     },
   });
 

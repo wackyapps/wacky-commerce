@@ -2,12 +2,34 @@
 import { DashboardSidebar } from "@/components";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { convertCategoryNameToURLFriendly } from "../../../../../utils/categoryFormating";
+import { convertCategoryNameToURLFriendly } from "@/utils/categoryFormating";
+import Image from "next/image";
 
 const DashboardNewCategoryPage = () => {
   const [categoryInput, setCategoryInput] = useState({
     name: "",
+    mainImage: "",
   });
+
+  const uploadFile = async (file: any) => {
+    const formData = new FormData();
+    formData.append("uploadedFile", file);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/main-image", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+      } else {
+        console.error("File upload unsuccessfull");
+      }
+    } catch (error) {
+      console.error("Error happend while sending request:", error);
+    }
+  };
 
   const addNewCategory = () => {
     if (categoryInput.name.length > 0) {
@@ -16,6 +38,7 @@ const DashboardNewCategoryPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: convertCategoryNameToURLFriendly(categoryInput.name),
+          mainImage: categoryInput.mainImage,
         }),
       };
       // sending API request for creating new cateogry
@@ -31,6 +54,7 @@ const DashboardNewCategoryPage = () => {
           toast.success("Category added successfully");
           setCategoryInput({
             name: "",
+            mainImage: "",
           });
         })
         .catch((error) => {
@@ -59,6 +83,28 @@ const DashboardNewCategoryPage = () => {
               }
             />
           </label>
+        </div>
+        <div>
+          <input
+            type="file"
+            className="daisy-file-input daisy-file-input-bordered daisy-file-input-lg w-full max-w-sm"
+            onChange={(e: any) => {
+              uploadFile(e.target.files[0]);
+              setCategoryInput({
+                ...categoryInput,
+                mainImage: e.target.files[0].name,
+              });
+            }}
+          />
+          {categoryInput?.mainImage && (
+            <Image
+              src={`/` + categoryInput?.mainImage}
+              alt={categoryInput?.name}
+              className="w-auto h-auto"
+              width={100}
+              height={100}
+            />
+          )}
         </div>
 
         <div className="flex gap-x-2">

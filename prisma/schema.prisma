@@ -74,6 +74,7 @@ model customer_order_product {
 model Category {
   id       String    @id @default(uuid())
   name     String    @unique
+  mainImage      String 
   products Product[] // Define a one-to-many relationship
 }
 

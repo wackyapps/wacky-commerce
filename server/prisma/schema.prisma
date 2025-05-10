@@ -12,7 +12,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:@localhost:3306/your_database_name"
+  url      = "mysql://root:@localhost:3306/college"
 }
 
 model Product {
@@ -76,6 +76,7 @@ model customer_order_product {
 model Category {
   id       String    @id @default(uuid())
   name     String    @unique
+  mainImage      String 
   products Product[] // Define a one-to-many relationship
 }
 

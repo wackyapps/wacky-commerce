@@ -3,10 +3,12 @@ const prisma = new PrismaClient();
 
 async function createCategory(request, response) {
   try {
-    const { name } = request.body;
+    const { name, mainImage } = request.body;
+    console.log("data ", name, mainImage);
     const category = await prisma.category.create({
       data: {
         name,
+        mainImage,
       },
     });
     return response.status(201).json(category);
@@ -19,7 +21,7 @@ async function createCategory(request, response) {
 async function updateCategory(request, response) {
   try {
     const { id } = request.params;
-    const { name } = request.body;
+    const { name, mainImage } = request.body;
 
     const existingCategory = await prisma.category.findUnique({
       where: {
@@ -37,6 +39,7 @@ async function updateCategory(request, response) {
       },
       data: {
         name,
+        mainImage,
       },
     });
 
@@ -67,7 +70,11 @@ async function getCategory(request, response) {
     where: {
       id: id,
     },
+    include: {
+      products: true,
+    },
   });
+  console.log(category);
   if (!category) {
     return response.status(404).json({ error: "Category not found" });
   }
