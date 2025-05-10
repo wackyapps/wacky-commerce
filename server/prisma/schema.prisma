@@ -6,13 +6,11 @@
 
 generator client {
   provider = "prisma-client-js"
-  url      = "mysql://root:@localhost:3306/college"
-
 }
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:@localhost:3306/college"
+  url      = "mysql://root:@localhost:3306/ecommerce"
 }
 
 model Product {
