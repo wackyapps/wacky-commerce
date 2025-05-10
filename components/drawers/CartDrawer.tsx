@@ -4,23 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import QuantityInputCart from "../QuantityInputCart";
 import toast from "react-hot-toast";
-import {
-  FaCheck,
-  FaCircleQuestion,
-  FaClock,
-  FaTrash,
-  FaXmark,
-} from "react-icons/fa6";
+import { FaCheck, FaCircleQuestion, FaClock, FaTrash } from "react-icons/fa6";
 import React from "react";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  Button,
-  useDisclosure,
-} from "@heroui/react";
+import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
+import { useRouter } from "next/navigation";
 const CartDrawer = () => {
   const {
     products,
@@ -42,12 +29,13 @@ const CartDrawer = () => {
       setShowCartDrawer(false);
     },
   };
+  const router = useRouter();
 
   return (
     <>
       <Drawer
         size="lg"
-        isOpen={isOpen}
+        isOpen={products.length > 0 && isOpen}
         onClose={onClose}
         className="rounded-none"
       >
@@ -59,7 +47,7 @@ const CartDrawer = () => {
                   <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     Shopping Cart
                   </h1>
-                  <form className="mt-12 flex-1 flex flex-col items-stretch  ">
+                  <div className="mt-12 flex-1 flex flex-col items-stretch  ">
                     <section aria-labelledby="cart-heading" className="flex-1">
                       <h2 id="cart-heading" className="sr-only">
                         Items in your shopping cart
@@ -221,16 +209,20 @@ const CartDrawer = () => {
                       </dl>
                       {products.length > 0 && (
                         <div className="mt-6">
-                          <Link
-                            href="/checkout"
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              router.push("/checkout");
+                              onClose();
+                            }}
                             className=" flex justify-center items-center w-full uppercase bg-white px-4 py-3 text-base border  border-gray-300 font-bold text-blue-600 shadow-sm  duration-300 hover:bg-gray-100 focus:outline-none focus:ring-2"
                           >
                             <span>Checkout</span>
-                          </Link>
+                          </button>
                         </div>
                       )}
                     </section>
-                  </form>
+                  </div>
                 </div>
               </DrawerBody>
             </>
