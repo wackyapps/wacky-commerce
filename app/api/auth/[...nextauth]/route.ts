@@ -47,6 +47,22 @@ const authOptions: NextAuthOptions = {
       }
       return false;
     },
+    async session({ session, token }: { session: any; token: any }) {
+      return session;
+    },
+    async jwt({ token, user }: { token: any; user: any }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+  },
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login",
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
