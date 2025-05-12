@@ -3,11 +3,11 @@ import { SectionTitle, WishItem } from "@/components";
 import React, { useEffect, useState } from "react";
 import { useWishlistStore } from "../_zustand/wishlistStore";
 import { nanoid } from "nanoid";
-import { useSession } from "next-auth/react";
+import { useAppSelector } from "../_redux/hooks";
 
 const WishlistPage = () => {
-  const { data: session, status } = useSession();
   const { wishlist, setWishlist } = useWishlistStore();
+  const user = useAppSelector((x) => x.auth.user);
 
   const getWishlistByUserId = async (id: string) => {
     const response = await fetch(`http://localhost:3001/api/wishlist/${id}`, {
@@ -39,8 +39,8 @@ const WishlistPage = () => {
   };
 
   const getUserByEmail = async () => {
-    if (session?.user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+    if (user?.email) {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -52,7 +52,7 @@ const WishlistPage = () => {
 
   useEffect(() => {
     getUserByEmail();
-  }, [session?.user?.email, wishlist.length]);
+  }, [user?.email, wishlist.length]);
   return (
     <div className="bg-white">
       <SectionTitle title="Wishlist" path="Home | Wishlist" />

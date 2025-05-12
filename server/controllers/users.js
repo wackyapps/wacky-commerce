@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 async function getAllUsers(request, response) {
   try {
@@ -103,6 +104,63 @@ async function getUserByEmail(request, response) {
   return response.status(200).json(user);
 }
 
+async function registerUser(req, res) {
+  try {
+    const { email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    // if user exists, return error
+    if (existingUser) {
+      return res.status(400).json({ error: "User already exists" });
+    }
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        role: "user",
+      },
+    });
+    return res.status(201).json(user);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    return res.status(500).json({ error: "Error creating user" });
+  }
+}
+
+async function loginUser(req, res) {
+  try {
+    const { email, password } = req.body;
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    // if user does not exist, return error
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+    // if password is incorrect, return error
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      "secret_key"
+    );
+    res.cookie("token", token, { httpOnly: true });
+    return res.status(200).json({ token });
+  } catch (error) {
+    console.error("Error logging in user:", error);
+    return res.status(500).json({ error: "Error logging in user" });
+  }
+}
+
 module.exports = {
   createUser,
   updateUser,
@@ -110,4 +168,6 @@ module.exports = {
   getUser,
   getAllUsers,
   getUserByEmail,
+  registerUser,
+  loginUser,
 };

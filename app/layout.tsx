@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer, Header } from "@/components";
-import SessionProvider from "@/utils/SessionProvider";
 import Providers from "@/Providers";
-import { getServerSession } from "next-auth";
 import "svgmap/dist/svgMap.min.css";
 import CartDrawer from "@/components/drawers/CartDrawer";
 
@@ -20,16 +18,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
   return (
     <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <SessionProvider session={session}>
+        <Providers>
           <Header />
-          <Providers>{children}</Providers>
+          {children}
           <Footer />
           <CartDrawer />
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -17,7 +17,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaHeartCrack } from "react-icons/fa6";
 import { deleteWishItem } from "@/app/actions";
-import { useSession } from "next-auth/react";
+import { useAppSelector } from "@/app/_redux/hooks";
 
 interface wishItemStateTrackers {
   isWishItemDeleted: boolean;
@@ -32,18 +32,18 @@ const WishItem = ({
   slug,
   stockAvailabillity,
 }: ProductInWishlist) => {
-  const { data: session, status } = useSession();
   const { removeFromWishlist } = useWishlistStore();
   const router = useRouter();
   const [userId, setUserId] = useState<string>();
+  const user = useAppSelector((x) => x.auth.user);
 
   const openProduct = (slug: string): void => {
     router.push(`/product/${slug}`);
   };
 
   const getUserByEmail = async () => {
-    if (session?.user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+    if (user?.email) {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -68,7 +68,7 @@ const WishItem = ({
 
   useEffect(() => {
     getUserByEmail();
-  }, [session?.user?.email]);
+  }, [user?.email]);
 
   return (
     <tr className="hover:bg-gray-100 cursor-pointer">

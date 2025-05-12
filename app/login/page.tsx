@@ -1,24 +1,27 @@
 "use client";
 import { CustomButton, SectionTitle } from "@/components";
 import { isValidEmailAddressFormat } from "@/lib/utils";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { useAppDispatch, useAppSelector } from "../_redux/hooks";
+import { login } from "../_redux/slices/authSlice";
 
 const LoginPage = () => {
   const router = useRouter();
   const [error, setError] = useState("");
+  const data = useAppSelector((x) => x.auth);
+  const dispatch = useAppDispatch();
   // const session = useSession();
-  const { data: session, status: sessionStatus } = useSession();
+  const auth = useAppSelector((x) => x.auth);
 
   useEffect(() => {
     // if user has already logged in redirect to home page
-    if (sessionStatus === "authenticated") {
+    if (auth.isAuthenticated) {
       router.replace("/");
     }
-  }, [sessionStatus, router]);
+  }, [auth.isAuthenticated, router]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -36,24 +39,11 @@ const LoginPage = () => {
       toast.error("Password is invalid");
       return;
     }
-
-    const res = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-    });
-
-    if (res?.error) {
-      setError("Invalid email or password");
-      toast.error("Invalid email or password");
-      if (res?.url) router.replace("/");
-    } else {
-      setError("");
-      toast.success("Successful login");
-    }
+    await dispatch(login({ email, password }));
+    router.replace("/");
   };
 
-  if (sessionStatus === "loading") {
+  if (auth.loading) {
     return <h1>Loading...</h1>;
   }
   return (
@@ -146,7 +136,7 @@ const LoginPage = () => {
             </form>
 
             <div>
-              <div className="relative mt-10">
+              {/* <div className="relative mt-10">
                 <div
                   className="absolute inset-0 flex items-center"
                   aria-hidden="true"
@@ -158,13 +148,13 @@ const LoginPage = () => {
                     Or continue with
                   </span>
                 </div>
-              </div>
+              </div> */}
 
-              <div className="mt-6 grid grid-cols-2 gap-4">
+              {/* <div className="mt-6 grid grid-cols-2 gap-4">
                 <button
                   className="flex w-full items-center border border-gray-300 justify-center gap-3 rounded-md bg-white px-3 py-1.5 text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   onClick={() => {
-                    signIn("google");
+                    // signIn("google");
                   }}
                 >
                   <FcGoogle />
@@ -176,7 +166,7 @@ const LoginPage = () => {
                 <button
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-[#24292F] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#24292F]"
                   onClick={() => {
-                    signIn("github");
+                    // signIn("github");
                   }}
                 >
                   <svg
@@ -195,7 +185,7 @@ const LoginPage = () => {
                     GitHub
                   </span>
                 </button>
-              </div>
+              </div> */}
               <p className="text-red-600 text-center text-[16px] my-4">
                 {error && error}
               </p>
@@ -203,6 +193,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      {JSON.stringify(data)}
     </div>
   );
 };

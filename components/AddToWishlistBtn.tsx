@@ -1,5 +1,6 @@
 "use client";
 
+import { useAppSelector } from "@/app/_redux/hooks";
 // *********************
 // Role of the component: Button for adding and removing product to the wishlist on the single product page
 // Name of the component: AddToWishlistBtn.tsx
@@ -11,7 +12,6 @@
 // *********************
 
 import { useWishlistStore } from "@/app/_zustand/wishlistStore";
-import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaHeartCrack } from "react-icons/fa6";
@@ -23,15 +23,15 @@ interface AddToWishlistBtnProps {
 }
 
 const AddToWishlistBtn = ({ product, slug }: AddToWishlistBtnProps) => {
-  const { data: session, status } = useSession();
   const { addToWishlist, removeFromWishlist, wishlist } = useWishlistStore();
   const [isProductInWishlist, setIsProductInWishlist] = useState<boolean>();
+  const user = useAppSelector((x) => x.auth.user);
 
   const addToWishlistFun = async () => {
     // getting user by email so I can get his user id
-    if (session?.user?.email) {
+    if (user?.email) {
       // sending fetch request to get user id because we will need it for saving wish item
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -63,9 +63,9 @@ const AddToWishlistBtn = ({ product, slug }: AddToWishlistBtnProps) => {
   };
 
   const removeFromWishlistFun = async () => {
-    if (session?.user?.email) {
+    if (user?.email) {
       // sending fetch request to get user id because we will need to delete wish item
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -86,8 +86,8 @@ const AddToWishlistBtn = ({ product, slug }: AddToWishlistBtnProps) => {
 
   const isInWishlist = async () => {
     // sending fetch request to get user id because we will need it for cheching whether the product is in wishlist
-    if (session?.user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+    if (user?.email) {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -110,7 +110,7 @@ const AddToWishlistBtn = ({ product, slug }: AddToWishlistBtnProps) => {
 
   useEffect(() => {
     isInWishlist();
-  }, [session?.user?.email, wishlist]);
+  }, [user?.email, wishlist]);
 
   return (
     <>

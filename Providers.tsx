@@ -2,6 +2,8 @@
 import { Toaster } from "react-hot-toast";
 import React from "react";
 import { HeroUIProvider } from "@heroui/react";
+import { Provider } from "react-redux";
+import store from "./app/_redux/store";
 const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
@@ -13,7 +15,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
           },
         }}
       />
-      <HeroUIProvider>{children}</HeroUIProvider>
+      <HeroUIProvider>
+        <Provider store={store}>{children}</Provider>
+      </HeroUIProvider>
     </>
   );
 };

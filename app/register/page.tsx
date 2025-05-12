@@ -1,22 +1,23 @@
 "use client";
 import { CustomButton, SectionTitle } from "@/components";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useAppDispatch, useAppSelector } from "../_redux/hooks";
+import { register } from "../_redux/slices/authSlice";
 
 const RegisterPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
-  const { data: session, status: sessionStatus } = useSession();
+  const auth = useAppSelector((x) => x.auth);
 
   useEffect(() => {
     // chechking if user has already registered redirect to home page
-    if (sessionStatus === "authenticated") {
+    if (auth.isAuthenticated) {
       router.replace("/");
     }
-  }, [sessionStatus, router]);
+  }, [auth.isAuthenticated, router]);
 
   const isValidEmail = (email: string) => {
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -27,6 +28,7 @@ const RegisterPage = () => {
     const email = e.target[2].value;
     const password = e.target[3].value;
     const confirmPassword = e.target[4].value;
+    const dispatch = useAppDispatch();
 
     if (!isValidEmail(email)) {
       setError("Email is invalid");
@@ -47,27 +49,8 @@ const RegisterPage = () => {
     }
 
     try {
-      // sending API request for registering user
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      if (res.status === 400) {
-        toast.error("This email is already registered");
-        setError("The email already in use");
-      }
-      if (res.status === 200) {
-        setError("");
-        toast.success("Registration successful");
-        router.push("/login");
-      }
+      await dispatch(register({ email, password }));
+      router.replace("/login");
     } catch (error) {
       toast.error("Error, try again");
       setError("Error, try again");
@@ -75,7 +58,7 @@ const RegisterPage = () => {
     }
   };
 
-  if (sessionStatus === "loading") {
+  if (auth.loading) {
     return <h1>Loading...</h1>;
   }
   return (

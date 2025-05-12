@@ -19,17 +19,21 @@ import { FaBell } from "react-icons/fa6";
 
 import CartElement from "./CartElement";
 import HeartElement from "./HeartElement";
-import { signOut, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useWishlistStore } from "@/app/_zustand/wishlistStore";
+import { useAppDispatch, useAppSelector } from "@/app/_redux/hooks";
+import { logout } from "@/app/_redux/slices/authSlice";
 
 const Header = () => {
-  const { data: session, status } = useSession();
   const pathname = usePathname();
   const { wishlist, setWishlist, wishQuantity } = useWishlistStore();
+  const user = useAppSelector((x) => x.auth.user);
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    setTimeout(() => signOut(), 1000);
+    setTimeout(() => {
+      dispatch(logout());
+    }, 1000);
     toast.success("Logout successful!");
   };
 
@@ -64,8 +68,8 @@ const Header = () => {
 
   // getting user by email so I can get his user id
   const getUserByEmail = async () => {
-    if (session?.user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${session?.user?.email}`, {
+    if (user?.email) {
+      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -77,7 +81,7 @@ const Header = () => {
 
   useEffect(() => {
     getUserByEmail();
-  }, [session?.user?.email, wishlist.length]);
+  }, [user?.email, wishlist.length]);
 
   return (
     <header className="bg-white">

@@ -1,16 +1,11 @@
-import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
-
 export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session: {
-    user: { name: string; email: string; image: string };
-  } | null = await getServerSession();
+  // const session: {
+  //   user: { name: string; email: string; image: string };
+  // } | null = await getServerSession();
 
   // if (!session) {
   //   redirect("/");
