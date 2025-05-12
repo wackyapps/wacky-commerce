@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { formatCategoryName } from "../../../../../utils/categoryFormating";
 import { convertCategoryNameToURLFriendly } from "../../../../../utils/categoryFormating";
 import Image from "next/image";
+import { BASE_URL } from "@/utils/base_url";
 
 interface DashboardSingleCategoryProps {
   params: { id: number };
@@ -28,7 +29,7 @@ const DashboardSingleCategory = ({
       method: "DELETE",
     };
     // sending API request for deleting a category
-    fetch(`http://localhost:3001/api/categories/${id}`, requestOptions)
+    fetch(`${BASE_URL}/api/categories/${id}`, requestOptions)
       .then((response) => {
         if (response.status === 204) {
           toast.success("Category deleted successfully");
@@ -53,7 +54,7 @@ const DashboardSingleCategory = ({
         }),
       };
       // sending API request for updating a category
-      fetch(`http://localhost:3001/api/categories/${id}`, requestOptions)
+      fetch(`${BASE_URL}/api/categories/${id}`, requestOptions)
         .then((response) => {
           if (response.status === 200) {
             return response.json();
@@ -73,7 +74,7 @@ const DashboardSingleCategory = ({
 
   useEffect(() => {
     // sending API request for getting single categroy
-    fetch(`http://localhost:3001/api/categories/${id}`)
+    fetch(`${BASE_URL}/api/categories/${id}`)
       .then((res) => {
         return res.json();
       })
@@ -90,7 +91,7 @@ const DashboardSingleCategory = ({
     formData.append("uploadedFile", file);
 
     try {
-      const response = await fetch("http://localhost:3001/api/main-image", {
+      const response = await fetch(`${BASE_URL}/api/main-image`, {
         method: "POST",
         body: formData,
       });

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { convertCategoryNameToURLFriendly } from "@/utils/categoryFormating";
 import Image from "next/image";
+import { BASE_URL } from "@/utils/base_url";
 
 const DashboardNewCategoryPage = () => {
   const [categoryInput, setCategoryInput] = useState({
@@ -16,7 +17,7 @@ const DashboardNewCategoryPage = () => {
     formData.append("uploadedFile", file);
 
     try {
-      const response = await fetch("http://localhost:3001/api/main-image", {
+      const response = await fetch(`${BASE_URL}/api/main-image`, {
         method: "POST",
         body: formData,
       });
@@ -42,7 +43,7 @@ const DashboardNewCategoryPage = () => {
         }),
       };
       // sending API request for creating new cateogry
-      fetch(`http://localhost:3001/api/categories`, requestOptions)
+      fetch(`${BASE_URL}/api/categories`, requestOptions)
         .then((response) => {
           if (response.status === 201) {
             return response.json();

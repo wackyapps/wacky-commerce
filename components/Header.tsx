@@ -23,6 +23,7 @@ import toast from "react-hot-toast";
 import { useWishlistStore } from "@/app/_zustand/wishlistStore";
 import { useAppDispatch, useAppSelector } from "@/app/_redux/hooks";
 import { logout } from "@/app/_redux/slices/authSlice";
+import { BASE_URL } from "@/utils/base_url";
 
 const Header = () => {
   const pathname = usePathname();
@@ -39,7 +40,7 @@ const Header = () => {
 
   // getting all wishlist items by user id
   const getWishlistByUserId = async (id: string) => {
-    const response = await fetch(`http://localhost:3001/api/wishlist/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/wishlist/${id}`, {
       cache: "no-store",
     });
     const wishlist = await response.json();
@@ -69,7 +70,7 @@ const Header = () => {
   // getting user by email so I can get his user id
   const getUserByEmail = async () => {
     if (user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
+      fetch(`${BASE_URL}/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())

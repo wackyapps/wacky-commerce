@@ -1,7 +1,6 @@
+import { BASE_URL } from "@/utils/base_url";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jwt from "jsonwebtoken";
-
-const BASE_URL = "http://localhost:3001/api";
 // Define types for credentials
 interface Credentials {
   email: string;
@@ -23,7 +22,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: Credentials, { rejectWithValue }) => {
     try {
-      const res = await fetch(BASE_URL + "/users/login", {
+      const res = await fetch(BASE_URL + "/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify JSON content type
@@ -46,7 +45,7 @@ export const register = createAsyncThunk(
   "auth/register",
   async ({ email, password }: Credentials, { rejectWithValue }) => {
     try {
-      const res = await fetch(BASE_URL + "/users/login", {
+      const res = await fetch(BASE_URL + "/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify JSON content type

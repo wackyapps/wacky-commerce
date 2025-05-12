@@ -1,6 +1,7 @@
 "use client";
 import { DashboardSidebar } from "@/components";
 import { isValidEmailAddressFormat, isValidNameOrLastname } from "@/lib/utils";
+import { BASE_URL } from "@/utils/base_url";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
@@ -51,16 +52,14 @@ const AdminSingleOrder = () => {
 
   useEffect(() => {
     const fetchOrderData = async () => {
-      const response = await fetch(
-        `http://localhost:3001/api/orders/${params?.id}`
-      );
+      const response = await fetch(`${BASE_URL}/api/orders/${params?.id}`);
       const data: Order = await response.json();
       setOrder(data);
     };
 
     const fetchOrderProducts = async () => {
       const response = await fetch(
-        `http://localhost:3001/api/order-product/${params?.id}`
+        `${BASE_URL}/api/order-product/${params?.id}`
       );
       const data: OrderProduct[] = await response.json();
       setOrderProducts(data);
@@ -98,7 +97,7 @@ const AdminSingleOrder = () => {
         return;
       }
 
-      fetch(`http://localhost:3001/api/orders/${order?.id}`, {
+      fetch(`${BASE_URL}/api/orders/${order?.id}`, {
         method: "PUT", // or 'PUT'
         headers: {
           "Content-Type": "application/json",
@@ -125,18 +124,16 @@ const AdminSingleOrder = () => {
       method: "DELETE",
     };
 
-    fetch(
-      `http://localhost:3001/api/order-product/${order?.id}`,
-      requestOptions
-    ).then((response) => {
-      fetch(
-        `http://localhost:3001/api/orders/${order?.id}`,
-        requestOptions
-      ).then((response) => {
-        toast.success("Order deleted successfully");
-        router.push("/admin/orders");
-      });
-    });
+    fetch(`${BASE_URL}/api/order-product/${order?.id}`, requestOptions).then(
+      (response) => {
+        fetch(`${BASE_URL}/api/orders/${order?.id}`, requestOptions).then(
+          (response) => {
+            toast.success("Order deleted successfully");
+            router.push("/admin/orders");
+          }
+        );
+      }
+    );
   };
 
   return (

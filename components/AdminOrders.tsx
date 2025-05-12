@@ -12,13 +12,14 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { BASE_URL } from "@/utils/base_url";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch("http://localhost:3001/api/orders");
+      const response = await fetch(`${BASE_URL}/api/orders`);
       const data = await response.json();
       setOrders(data);
     };

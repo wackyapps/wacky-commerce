@@ -14,6 +14,7 @@ import Image from "next/image";
 import { categoryMenuList } from "@/lib/utils";
 import Heading from "./Heading";
 import { formatCategoryName } from "@/utils/categoryFormating";
+import { BASE_URL } from "@/utils/base_url";
 
 type CategoryItem = {
   id: string;
@@ -22,7 +23,7 @@ type CategoryItem = {
 };
 
 const CategoryMenu = async () => {
-  const res = await fetch("http://localhost:3001/api/categories", {
+  const res = await fetch(`${BASE_URL}/api/categories`, {
     cache: "no-store",
   });
   const categories: CategoryItem[] = await res.json();

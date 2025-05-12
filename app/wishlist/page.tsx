@@ -4,13 +4,14 @@ import React, { useEffect, useState } from "react";
 import { useWishlistStore } from "../_zustand/wishlistStore";
 import { nanoid } from "nanoid";
 import { useAppSelector } from "../_redux/hooks";
+import { BASE_URL } from "@/utils/base_url";
 
 const WishlistPage = () => {
   const { wishlist, setWishlist } = useWishlistStore();
   const user = useAppSelector((x) => x.auth.user);
 
   const getWishlistByUserId = async (id: string) => {
-    const response = await fetch(`http://localhost:3001/api/wishlist/${id}`, {
+    const response = await fetch(`${BASE_URL}/api/wishlist/${id}`, {
       cache: "no-store",
     });
     const wishlist = await response.json();
@@ -40,7 +41,7 @@ const WishlistPage = () => {
 
   const getUserByEmail = async () => {
     if (user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
+      fetch(`${BASE_URL}/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())

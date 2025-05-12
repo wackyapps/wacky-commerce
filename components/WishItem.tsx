@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 import { FaHeartCrack } from "react-icons/fa6";
 import { deleteWishItem } from "@/app/actions";
 import { useAppSelector } from "@/app/_redux/hooks";
+import { BASE_URL } from "@/utils/base_url";
 
 interface wishItemStateTrackers {
   isWishItemDeleted: boolean;
@@ -43,7 +44,7 @@ const WishItem = ({
 
   const getUserByEmail = async () => {
     if (user?.email) {
-      fetch(`http://localhost:3001/api/users/email/${user?.email}`, {
+      fetch(`${BASE_URL}/api/users/email/${user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -55,7 +56,7 @@ const WishItem = ({
 
   const deleteItemFromWishlist = async (productId: string) => {
     if (userId) {
-      fetch(`http://localhost:3001/api/wishlist/${userId}/${productId}`, {
+      fetch(`${BASE_URL}/api/wishlist/${userId}/${productId}`, {
         method: "DELETE",
       }).then((response) => {
         removeFromWishlist(productId);

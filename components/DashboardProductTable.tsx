@@ -14,12 +14,13 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
+import { BASE_URL } from "@/utils/base_url";
 
 const DashboardProductTable = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/products?mode=admin", {
+    fetch(`${BASE_URL}/api/products?mode=admin`, {
       cache: "no-store",
     })
       .then((res) => {

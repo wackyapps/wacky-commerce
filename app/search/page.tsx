@@ -1,4 +1,5 @@
 import { ProductItem, SectionTitle } from "@/components";
+import { BASE_URL } from "@/utils/base_url";
 import React from "react";
 
 interface Props {
@@ -7,9 +8,7 @@ interface Props {
 
 // sending api request for search results for a given search text
 const SearchPage = async ({ searchParams: { search } }: Props) => {
-  const data = await fetch(
-    `http://localhost:3001/api/search?query=${search || ""}`
-  );
+  const data = await fetch(`${BASE_URL}/api/search?query=${search || ""}`);
 
   const products = await data.json();
 
