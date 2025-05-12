@@ -11,6 +11,7 @@ const RegisterPage = () => {
   const [error, setError] = useState("");
   const router = useRouter();
   const auth = useAppSelector((x) => x.auth);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     // chechking if user has already registered redirect to home page
@@ -28,7 +29,6 @@ const RegisterPage = () => {
     const email = e.target[2].value;
     const password = e.target[3].value;
     const confirmPassword = e.target[4].value;
-    const dispatch = useAppDispatch();
 
     if (!isValidEmail(email)) {
       setError("Email is invalid");
