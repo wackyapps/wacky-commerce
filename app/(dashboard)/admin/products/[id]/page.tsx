@@ -97,7 +97,7 @@ const DashboardProductDetails = ({
 
       if (response.ok) {
         const data = await response.json();
-        setProduct({ ...product, mainImage: data.filename });
+        setProduct({ ...product!, mainImage: data.filename as string });
       } else {
         toast.error("File upload unsuccessful.");
       }
