@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 const BuyNowSingleProductBtn = ({
   product,
   quantityCount,
+  selectedVariant,
 }: SingleProductBtnProps) => {
   const router = useRouter();
   const { addToCart, calculateTotals, setShowCartDrawer } = useProductStore();
@@ -25,9 +26,9 @@ const BuyNowSingleProductBtn = ({
     addToCart({
       id: product?.id.toString(),
       title: product?.title,
-      price: product?.price,
       image: product?.mainImage,
       amount: quantityCount,
+      variant: selectedVariant,
     });
     calculateTotals();
     setShowCartDrawer(true);

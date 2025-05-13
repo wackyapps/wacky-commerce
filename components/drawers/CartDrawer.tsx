@@ -8,6 +8,7 @@ import { FaCheck, FaCircleQuestion, FaClock, FaTrash } from "react-icons/fa6";
 import React from "react";
 import { Drawer, DrawerContent, DrawerBody } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/utils/base_url";
 const CartDrawer = () => {
   const {
     products,
@@ -65,7 +66,7 @@ const CartDrawer = () => {
                                 height={112}
                                 src={
                                   product?.image
-                                    ? `/${product.image}`
+                                    ? `${BASE_URL}/uploads/${product.image}`
                                     : "/product_placeholder.jpg"
                                 }
                                 alt="laptop image"
@@ -82,13 +83,14 @@ const CartDrawer = () => {
                                         href={`#`}
                                         className="font-medium text-gray-700 hover:text-gray-800"
                                       >
-                                        {product.title}
+                                        {product.title}{" "}
+                                        {` (${product.variant.name})`}
                                       </Link>
                                     </h3>
                                   </div>
 
                                   <p className="mt-1 text-sm font-medium text-gray-900">
-                                    ${product.price}
+                                    ${product.variant.price}
                                   </p>
                                 </div>
 
@@ -97,7 +99,9 @@ const CartDrawer = () => {
                                   <div className=" right-0 top-0">
                                     <button
                                       onClick={() =>
-                                        handleRemoveItem(product.id)
+                                        handleRemoveItem(
+                                          product.variant.id as string
+                                        )
                                       }
                                       type="button"
                                       className="-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500"

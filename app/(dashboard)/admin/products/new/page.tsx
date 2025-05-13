@@ -6,25 +6,29 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+const emptyVariantObject = {
+  name: "",
+  price: 0,
+  inStock: 1,
+};
+
 const AddNewProduct = () => {
   const [product, setProduct] = useState<{
     title: string;
-    price: number;
     manufacturer: string;
-    inStock: number;
     mainImage: string;
     description: string;
     slug: string;
     categoryId: string;
+    variants: ProductVariant[];
   }>({
     title: "",
-    price: 0,
     manufacturer: "",
-    inStock: 1,
     mainImage: "",
     description: "",
     slug: "",
     categoryId: "",
+    variants: [emptyVariantObject],
   });
   const [categories, setCategories] = useState<Category[]>([]);
 
@@ -33,7 +37,8 @@ const AddNewProduct = () => {
       product.title === "" ||
       product.manufacturer === "" ||
       product.description == "" ||
-      product.slug === ""
+      product.slug === "" ||
+      product.variants.length === 0
     ) {
       toast.error("Please enter values in input fields");
       return;
@@ -56,13 +61,12 @@ const AddNewProduct = () => {
         toast.success("Product added successfully");
         setProduct({
           title: "",
-          price: 0,
           manufacturer: "",
-          inStock: 1,
           mainImage: "",
           description: "",
           slug: "",
           categoryId: "",
+          variants: [emptyVariantObject],
         });
       })
       .catch((error) => {
@@ -82,6 +86,7 @@ const AddNewProduct = () => {
 
       if (response.ok) {
         const data = await response.json();
+        setProduct({ ...product, mainImage: data.filename });
       } else {
         console.error("File upload unsuccessfull");
       }
@@ -99,13 +104,12 @@ const AddNewProduct = () => {
         setCategories(data);
         setProduct({
           title: "",
-          price: 0,
           manufacturer: "",
-          inStock: 1,
           mainImage: "",
           description: "",
           slug: "",
           categoryId: data[0]?.id,
+          variants: [emptyVariantObject],
         });
       });
   };
@@ -186,21 +190,6 @@ const AddNewProduct = () => {
         <div>
           <label className="daisy-form-control w-full max-w-xs">
             <div className="daisy-label">
-              <span className="daisy-label-text">Product price:</span>
-            </div>
-            <input
-              type="text"
-              className="daisy-input daisy-input-bordered w-full max-w-xs"
-              value={product?.price}
-              onChange={(e) =>
-                setProduct({ ...product, price: Number(e.target.value) })
-              }
-            />
-          </label>
-        </div>
-        <div>
-          <label className="daisy-form-control w-full max-w-xs">
-            <div className="daisy-label">
               <span className="daisy-label-text">Manufacturer:</span>
             </div>
             <input
@@ -213,35 +202,18 @@ const AddNewProduct = () => {
             />
           </label>
         </div>
-        <div>
-          <label className="daisy-form-control w-full max-w-xs">
-            <div className="daisy-label">
-              <span className="daisy-label-text">Is product in stock?</span>
-            </div>
-            <select
-              className="daisy-select daisy-select-bordered"
-              value={product?.inStock}
-              onChange={(e) =>
-                setProduct({ ...product, inStock: Number(e.target.value) })
-              }
-            >
-              <option value={1}>Yes</option>
-              <option value={0}>No</option>
-            </select>
-          </label>
-        </div>
+
         <div>
           <input
             type="file"
             className="daisy-file-input daisy-file-input-bordered daisy-file-input-lg w-full max-w-sm"
             onChange={(e: any) => {
               uploadFile(e.target.files[0]);
-              setProduct({ ...product, mainImage: e.target.files[0].name });
             }}
           />
           {product?.mainImage && (
             <Image
-              src={`/` + product?.mainImage}
+              src={`${BASE_URL}/uploads/` + product?.mainImage}
               alt={product?.title}
               className="w-auto h-auto"
               width={100}
@@ -263,6 +235,103 @@ const AddNewProduct = () => {
             ></textarea>
           </label>
         </div>
+        <div>
+          <h2 className="text-lg font-bold mb-4">Product Variants</h2>
+          {product.variants.map((variant, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex justify-between items-center">
+                <div>
+                  <label className="daisy-form-control w-full max-w-xs">
+                    <div className="daisy-label">
+                      <span className="daisy-label-text">Variant Name:</span>
+                    </div>
+                    <input
+                      type="text"
+                      className="daisy-input daisy-input-bordered w-full max-w-xs"
+                      value={variant.name}
+                      onChange={(e) =>
+                        setProduct({
+                          ...product,
+                          variants: product.variants.map((v, i) =>
+                            i === index ? { ...v, name: e.target.value } : v
+                          ),
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="daisy-form-control w-full max-w-xs">
+                    <div className="daisy-label">
+                      <span className="daisy-label-text">Variant Price:</span>
+                    </div>
+                    <input
+                      type="text"
+                      className="daisy-input daisy-input-bordered w-full max-w-xs"
+                      value={variant.price}
+                      onChange={(e) =>
+                        setProduct({
+                          ...product,
+                          variants: product.variants.map((v, i) =>
+                            i === index
+                              ? { ...v, price: Number(e.target.value) }
+                              : v
+                          ),
+                        })
+                      }
+                    />
+                  </label>
+                  <label className="daisy-form-control w-full max-w-xs">
+                    <div className="daisy-label">
+                      <span className="daisy-label-text">In Stock:</span>
+                    </div>
+                    <select
+                      className="daisy-select daisy-select-bordered"
+                      value={variant.inStock}
+                      onChange={(e) =>
+                        setProduct({
+                          ...product,
+                          variants: product.variants.map((v, i) =>
+                            i === index
+                              ? { ...v, inStock: Number(e.target.value) }
+                              : v
+                          ),
+                        })
+                      }
+                    >
+                      <option value={1}>Yes</option>
+                      <option value={0}>No</option>
+                    </select>
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setProduct({
+                      ...product,
+                      variants: product.variants.filter((_, i) => i !== index),
+                    })
+                  }
+                  disabled={product.variants.length === 1}
+                  className="daisy-btn daisy-btn-error"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              setProduct({
+                ...product,
+                variants: [...product.variants, emptyVariantObject],
+              })
+            }
+            className="daisy-btn daisy-btn-primary"
+          >
+            Add Variant
+          </button>
+        </div>
+
         <div className="flex gap-x-2">
           <button
             onClick={addProduct}

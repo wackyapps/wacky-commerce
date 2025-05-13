@@ -83,7 +83,7 @@ const DashboardProductTable = () => {
                             height={48}
                             src={
                               product?.mainImage
-                                ? `/${product?.mainImage}`
+                                ? `${BASE_URL}/uploads/${product?.mainImage}`
                                 : "/product_placeholder.jpg"
                             }
                             alt="Avatar Tailwind CSS Component"
@@ -101,7 +101,7 @@ const DashboardProductTable = () => {
                   </td>
 
                   <td>
-                    {product?.inStock ? (
+                    {product?.variants[0]?.inStock ? (
                       <span className="daisy-badge daisy-badge-success text-white daisy-badge-sm">
                         In stock
                       </span>
@@ -111,7 +111,7 @@ const DashboardProductTable = () => {
                       </span>
                     )}
                   </td>
-                  <td>${product?.price}</td>
+                  <td>${product?.variants[0]?.price}</td>
                   <th>
                     <Link
                       href={`/admin/products/${product.id}`}

@@ -89,7 +89,7 @@ const CheckoutPage = () => {
       }
 
       // sending API request for creating a order
-      const response = fetch(`${BASE_URL}/api/orders`, {
+      const response = fetch("http://localhost:3001/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,8 +115,11 @@ const CheckoutPage = () => {
           const orderId: string = data.id;
           // for every product in the order we are calling addOrderProduct function that adds fields to the customer_order_product table
           for (let i = 0; i < products.length; i++) {
-            let productId: string = products[i].id;
-            addOrderProduct(orderId, products[i].id, products[i].amount);
+            addOrderProduct(
+              orderId,
+              products[i].variant.id as string,
+              products[i].amount
+            );
           }
         })
         .then(() => {
@@ -150,18 +153,18 @@ const CheckoutPage = () => {
 
   const addOrderProduct = async (
     orderId: string,
-    productId: string,
+    productVariantId: string,
     productQuantity: number
   ) => {
     // sending API POST request for the table customer_order_product that does many to many relatioship for order and product
-    const response = await fetch(`${BASE_URL}/api/order-product`, {
+    const response = await fetch("http://localhost:3001/api/order-product", {
       method: "POST", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         customerOrderId: orderId,
-        productId: productId,
+        productVariantId: productVariantId,
         quantity: productQuantity,
       }),
     });
@@ -214,7 +217,7 @@ const CheckoutPage = () => {
                   <Image
                     src={
                       product?.image
-                        ? `/${product?.image}`
+                        ? `${BASE_URL}/uploads/${product?.image}`
                         : "/product_placeholder.jpg"
                     }
                     alt={product?.title}
@@ -223,11 +226,11 @@ const CheckoutPage = () => {
                     className="h-20 w-20 flex-none rounded-md object-cover object-center"
                   />
                   <div className="flex-auto space-y-1">
-                    <h3>{product?.title}</h3>
+                    <h3>{`${product?.title} (${product.variant.name})`}</h3>
                     <p className="text-gray-500">x{product?.amount}</p>
                   </div>
                   <p className="flex-none text-base font-medium">
-                    ${product?.price}
+                    ${product?.variant.price}
                   </p>
                   <p></p>
                 </li>

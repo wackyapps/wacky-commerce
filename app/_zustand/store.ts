@@ -4,9 +4,9 @@ import { persist, createJSONStorage } from "zustand/middleware";
 export type ProductInCart = {
   id: string;
   title: string;
-  price: number;
   image: string;
   amount: number;
+  variant: ProductVariant;
 };
 
 export type State = {
@@ -35,18 +35,21 @@ export const useProductStore = create<State & Actions>()(
       addToCart: (newProduct) => {
         set((state) => {
           const cartItem = state.products.find(
-            (item) => item.id === newProduct.id
+            (item) =>
+              item.id === newProduct.id &&
+              item.variant.id === newProduct.variant.id
           );
           if (!cartItem) {
             return { products: [...state.products, newProduct] };
-          } else {
-            state.products.map((product) => {
-              if (product.id === cartItem.id) {
-                product.amount += newProduct.amount;
-              }
-            });
           }
-          return { products: [...state.products] };
+          return {
+            products: state.products.map((product) =>
+              product.id === newProduct.id &&
+              product.variant.id === newProduct.variant.id
+                ? { ...product, amount: product.amount + newProduct.amount }
+                : product
+            ),
+          };
         });
       },
       clearCart: () => {
@@ -61,7 +64,7 @@ export const useProductStore = create<State & Actions>()(
       removeFromCart: (id) => {
         set((state) => {
           state.products = state.products.filter(
-            (product: ProductInCart) => product.id !== id
+            (product: ProductInCart) => product.variant.id !== id
           );
           return { products: state.products };
         });
@@ -73,7 +76,7 @@ export const useProductStore = create<State & Actions>()(
           let total = 0;
           state.products.forEach((item) => {
             amount += item.amount;
-            total += item.amount * item.price;
+            total += item.amount * item.variant.price;
           });
 
           return {

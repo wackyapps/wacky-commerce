@@ -47,7 +47,11 @@ const CartPage = () => {
                       <Image
                         width={192}
                         height={192}
-                        src={product?.image ? `/${product.image}` : "/product_placeholder.jpg"}
+                        src={
+                          product?.image
+                            ? `/${product.image}`
+                            : "/product_placeholder.jpg"
+                        }
                         alt="laptop image"
                         className="h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48"
                       />
@@ -62,7 +66,7 @@ const CartPage = () => {
                                 href={`#`}
                                 className="font-medium text-gray-700 hover:text-gray-800"
                               >
-                                {product.title}
+                                {product.title} {` (${product.variant.name})`}
                               </Link>
                             </h3>
                           </div>
@@ -73,7 +77,7 @@ const CartPage = () => {
                         ) : null}
                       </div> */}
                           <p className="mt-1 text-sm font-medium text-gray-900">
-                            ${product.price}
+                            ${product.variant.price}
                           </p>
                         </div>
 
@@ -183,7 +187,7 @@ const CartPage = () => {
                 <div className="mt-6">
                   <Link
                     href="/checkout"
-                    className="block flex justify-center items-center w-full uppercase bg-white px-4 py-3 text-base border border-black border-gray-300 font-bold text-blue-600 shadow-sm hover:bg-black hover:bg-gray-100 focus:outline-none focus:ring-2"
+                    className=" flex justify-center items-center w-full uppercase bg-white px-4 py-3 text-base border  border-gray-300 font-bold text-blue-600 shadow-sm  hover:bg-gray-100 focus:outline-none focus:ring-2"
                   >
                     <span>Checkout</span>
                   </Link>

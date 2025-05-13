@@ -1,3 +1,10 @@
+interface ProductVariant {
+  id?: string;
+  name: string;
+  price: number;
+  inStock: number;
+}
+
 interface Product {
   id: string;
   slug: string;
@@ -8,8 +15,9 @@ interface Product {
   mainImage: string;
   manufacturer: string;
   categoryId: string;
-  category: {name: string}?;
+  category: { name: string }?;
   inStock: number;
+  variants: ProductVariant[];
 }
 
 interface SingleProductPageProps {
@@ -66,8 +74,8 @@ interface Order {
 interface SingleProductBtnProps {
   product: Product;
   quantityCount: number;
+  selectedVariant: ProductVariant;
 }
-
 
 interface Category {
   id: string;

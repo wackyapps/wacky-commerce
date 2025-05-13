@@ -98,6 +98,10 @@ const DashboardSingleCategory = ({
 
       if (response.ok) {
         const data = await response.json();
+        setCategoryInput({
+          ...categoryInput,
+          mainImage: data.filename,
+        });
       } else {
         console.error("File upload unsuccessfull");
       }
@@ -132,15 +136,11 @@ const DashboardSingleCategory = ({
             className="daisy-file-input daisy-file-input-bordered daisy-file-input-lg w-full max-w-sm"
             onChange={(e: any) => {
               uploadFile(e.target.files[0]);
-              setCategoryInput({
-                ...categoryInput,
-                mainImage: e.target.files[0].name,
-              });
             }}
           />
           {categoryInput?.mainImage && (
             <Image
-              src={`/` + categoryInput?.mainImage}
+              src={`${BASE_URL}/uploads/` + categoryInput?.mainImage}
               alt={categoryInput?.name}
               className="w-auto h-auto"
               width={100}

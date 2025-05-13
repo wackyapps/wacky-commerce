@@ -11,19 +11,24 @@ import toast from "react-hot-toast";
 interface OrderProduct {
   id: string;
   customerOrderId: string;
-  productId: string;
+  productVariantId: string;
   quantity: number;
-  product: {
+  productVariant: {
     id: string;
-    slug: string;
-    title: string;
-    mainImage: string;
+    productId: string;
+    name: string;
     price: number;
-    rating: number;
-    description: string;
-    manufacturer: string;
     inStock: number;
-    categoryId: string;
+    product: {
+      id: string;
+      slug: string;
+      title: string;
+      mainImage: string;
+      rating: number;
+      description: string;
+      manufacturer: string;
+      categoryId: string;
+    };
   };
 }
 
@@ -347,21 +352,21 @@ const AdminSingleOrder = () => {
             <div className="flex items-center gap-x-4" key={product?.id}>
               <Image
                 src={
-                  product?.product?.mainImage
-                    ? `/${product?.product?.mainImage}`
+                  product.productVariant.product?.mainImage
+                    ? `${BASE_URL}/uploads/${product.productVariant.product?.mainImage}`
                     : "/product_placeholder.jpg"
                 }
-                alt={product?.product?.title}
+                alt={`${product.productVariant.product.title} (${product.productVariant.name})`}
                 width={50}
                 height={50}
                 className="w-auto h-auto"
               />
               <div>
-                <Link href={`/product/${product?.product?.slug}`}>
-                  {product?.product?.title}
+                <Link href={`/product/${product.productVariant.product?.slug}`}>
+                  {`${product.productVariant.product.title} (${product.productVariant.name})`}
                 </Link>
                 <p>
-                  ${product?.product?.price} * {product?.quantity} items
+                  ${product?.productVariant?.price} * {product?.quantity} items
                 </p>
               </div>
             </div>

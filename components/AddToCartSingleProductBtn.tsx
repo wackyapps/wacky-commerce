@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 const AddToCartSingleProductBtn = ({
   product,
   quantityCount,
+  selectedVariant,
 }: SingleProductBtnProps) => {
   const { addToCart, calculateTotals, setShowCartDrawer } = useProductStore();
 
@@ -23,9 +24,9 @@ const AddToCartSingleProductBtn = ({
     addToCart({
       id: product?.id.toString(),
       title: product?.title,
-      price: product?.price,
       image: product?.mainImage,
       amount: quantityCount,
+      variant: selectedVariant,
     });
     calculateTotals();
     setShowCartDrawer(true);

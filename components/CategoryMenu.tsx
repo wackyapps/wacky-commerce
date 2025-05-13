@@ -39,7 +39,7 @@ const CategoryMenu = async () => {
             href={`/shop/${item.name}`}
           >
             <Image
-              src={`/${item.mainImage}`}
+              src={`${BASE_URL}/uploads/${item.mainImage}`}
               width={48}
               height={48}
               alt={item.name}

@@ -12,6 +12,7 @@ import Image from "next/image";
 import React from "react";
 import Link from "next/link";
 import ProductItemRating from "./ProductItemRating";
+import { BASE_URL } from "@/utils/base_url";
 
 const ProductItem = ({
   product,
@@ -26,7 +27,7 @@ const ProductItem = ({
         <Image
           src={
             product.mainImage
-              ? `/${product.mainImage}`
+              ? `${BASE_URL}/uploads/${product.mainImage}`
               : "/product_placeholder.jpg"
           }
           width="0"
@@ -53,7 +54,7 @@ const ProductItem = ({
             : "text-lg text-white font-semibold"
         }
       >
-        ${product.price}
+        ${product?.variants[0]?.price}
       </p>
 
       <ProductItemRating productRating={product?.rating} />
